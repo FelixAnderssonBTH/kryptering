@@ -1,0 +1,229 @@
+︠d5eab464-0fc0-47a6-b771-189242addc7di︠
+%md
+# Laboration
+Kryptering 1, hösten 2022
+︡6d053489-a538-46e8-a6ee-24b00ec8d441︡{"done":true,"md":"# Laboration\nKryptering 1, hösten 2022"}
+︠a7043f5a-b763-459f-bb34-9cc0cb853ce0︠
+%md
+**Namn:** Felix Andersson
+︡d7e69655-af28-4744-b149-48ad1d48039c︡
+︠5ae2eb53-8820-4a37-a2dc-aa92dc62f405︠
+# laddar användbar fil
+load('kryptering1.sage')
+︡df338fb7-aac1-4662-9b7e-6dcfbbcf3ef0︡
+︠d6e50983-f988-4a51-bd22-bbf16805e39di︠
+%md
+## Uppgift 1
+︡e2e2ac1b-d43f-465d-9826-6840abb98314︡{"done":true,"md":"## Uppgift 1"}
+︠3d9904ba-0d96-4960-856c-7e38972ecd83︠
+
+#ADFGVX(formidabelt) = GXDVXAFVGDDFGXGFGGXXAV
+#Affint krypto(formidabelt) = rgvzehuåmtd
+#Enigma(formidabelt) = ZLUKSWBNURH
+#Hillkrypto(formidabelt) = vqyklånldföu
+#playfair(formidabelt) = ZQIRRZVGTNAL
+
+
+n = 'QXMBK2GP56JFVND01HUA8OW473YELSCR9TZI'
+t = 'formidabelt'
+p = [3, 1, 0, 2, 4]
+ADFGVX(t.upper(), n.upper(), p)
+
+
+affint_krypto("formidabelt",5,20) #räknade ut nyklarna för hand med hjälp av invers, sedan testade jag de olika texterna
+
+
+k = [('A', 'H'), ('C', 'Z'), ('J', 'R'), ('M', 'N'), ('T', 'Y')]
+r = ['V', 'I', 'III']
+s = 'OST'
+Enigma("formidabelt".upper(),k,r,s)
+
+
+A = matrix(Zmod(28), [[7, 13],[6, 11]])
+pretty_print(A)
+Hillkrypto("formidabelt", A, typ = 'H')
+
+
+nyckel = 'MRIBGTEKVAFDZHWQUOSYLNCPX'.lower()
+for i in range(0, len(nyckel), 5) :
+    print(' '.join(nyckel[i:i+5]))
+plaintext = 'formidabelt'
+c = Playfair(plaintext, nyckel)
+print('E({}) = {}'.format(plaintext, c.upper()))
+
+
+
+#I: WKEWTTPOXEBFBKVZENZISMSZPHLHX => Enigma
+#II: DFSÄKCNKPDÅPPHMKKUOLQQNOOIZEEYDFBDRGNM => Hillkrypto
+#III: JZEIXNKVTPAFZFXÄAFÄZFEIXLDIPZTZOIV => Affint krypto
+#IV: XVGFGVAGVXGDGFFXGGVGXV =>ADFGVX
+#V: ZULEEKNLNCSIUZQAWVAL => Playfair
+
+
+n = 'QXMBK2GP56JFVND01HUA8OW473YELSCR9TZI'
+t = 'XVGFGVAGVXGDGFFXGGVGXV'
+p = [3, 1, 0, 2, 4]
+ADFGVX(t.upper(), n.upper(), p, metod = 'dekryptera')
+
+
+affint_krypto("jzeixnkvtpafzfxäafäzfeixldipztzoiv",5,20) #räknade ut nyklarna för hand med hjälp av invers, sedan testade jag de olika texterna
+
+
+k = [('A', 'H'), ('C', 'Z'), ('J', 'R'), ('M', 'N'), ('T', 'Y')]
+r = ['V', 'I', 'III']
+s = 'OST'
+Enigma("WKEWTTPOXEBFBKVZENZISMSZPHLHX",k,r,s)
+
+
+A = matrix(Zmod(28), [[7, 13],[6, 11]])
+pretty_print(A)
+A.is_invertible()
+Ainv = A.inverse()
+pretty_print(Ainv)
+Hillkrypto("dfsäkcnkpdåpphmkkuolqqnooizeeydfbdrgnm", Ainv, typ = 'H')
+
+
+nyckel = 'MRIBGTEKVAFDZHWQUOSYLNCPX'
+for i in range(0, len(nyckel), 5) :
+    print(' '.join(nyckel[i:i+5]))
+klartext = 'ZULEEKNLNCSIUZQAWVAL'
+c = Playfair(klartext, nyckel, metod = 'dekryptera')
+print('E({}) = {}'.format(klartext, c.upper()))
+
+
+︡92f1f70b-cec6-4249-b669-d856d31b95f4︡
+︠cb5ab162-3d5d-4e39-ba69-9e981d97afd4i︠
+%md
+## Uppgift 2
+︡723529ee-192d-4b23-b0d3-d03c67a47b37︡{"done":true,"md":"## Uppgift 2"}
+︠46182d01-c1f5-479f-91cf-4da70e6de5a3︠
+load('kryptering1.sage')
+load('data.sage')
+
+for s in [1..28] : #förföyttar strängen 28 gånger
+    k = Friedman(uppgift_2v_3, s)
+    print('s = {} : k = {}'.format(s, k))#fick stora matchningar på 6,12,18,24. Alltså borde nyckelordet vara längd 6
+#längd på sträng = 6
+
+delstr = splittra_text(uppgift_2v_3, 6)#delar upp texten i varje sjätte bokstav och lägger den i en textrsträng
+for i in range(6) :
+    #print('Delsträng {}: {}'.format(i, delstr[i]))
+    monogramanalys(delstr[i],) #Gör en graf för varje delsträng
+#1.B 
+#2.A 
+#3.T 
+#4.A 
+#5.L 
+#6.J 
+
+n = "batalj"
+d = sve([-x % 28 for x in sve(n)])
+print('Dekrypteringsnyckel:', d)
+c = Vigenerekrypto(uppgift_2v_3, d)
+print('E({}) = {}'.format(uppgift_2v_3, c.upper()))
+︡b1ce68a9-cdbb-4d09-8ce9-947f0c49dcc8︡
+︠a889c1d9-672a-4e6a-803e-f01488e9b7bci︠
+%md
+## Uppgift 3 eller 4
+︡13f6872e-e317-4d41-8e7d-f31ce9ed2dcc︡{"done":true,"md":"## Uppgift 3 eller 4"}
+︠9da540eb-d0b3-4830-af95-017669c94398︠
+def function_s(n): #delar upp talet i ental för att sedan kvadrera och summera
+    int_list = [int(i) for i in str(n)]
+    sum = 0
+    i = 0
+    while i < len(int_list):
+        sum += (int_list[i])**2
+        i = i+1
+    return sum
+
+def sheck_for_A(list): #retunerar false eller true ifall den hittar ett element i listan som finns i A
+    list_A = [1,4,16,20,37,42,58,89,145]
+    if any(value in list for value in list_A):
+        return True
+    else:
+        return False
+
+def function_x0(x,k): #skapar antingen en vald längd av lista eller skapar en lista tills man får ett element från A
+    if k == 0: #ifall du väljer att sätta k till 0 kommer den returnera en lista som kör tills du hittar ett element till A
+        Xk = [x]
+        statement = False
+        i = 0
+        while statement == False: #ifall den inte hittar ett element loopar den vidare.
+            statement = sheck_for_A(Xk)
+            sum = function_s(Xk[i])
+            Xk.append(sum)
+            i += 1
+        return Xk[: -1] #retunerar sista elementet i listan, alltså det element som matchade med a
+    else: #ifall ditt k är skiljt från 0 så kommer listan bli lika lång som k (bra för testning mm.)
+        Xk = [x]*k
+        i = 1
+        while i < k:
+            Xk[i]=function_s(Xk[i-1])
+            i += 1
+        return Xk
+
+def find_xa(): #mega print funktion, den loopar 10000 gånger. där värdet ökar med ett och sedan sparar vilket element som matchade med a i en av de listor
+    i=0
+    x=1
+    A1, A4, A16, A20, A37, A42, A58, A89, A145 = ([] for i in range(9))
+
+    while x < 10001:
+        a_value = function_x0(x,0)
+        last_element = str(a_value.pop())#ändrar sista siffran till en str så man kan jämföra
+        if  last_element == "1":
+            A1.append(x)
+        elif last_element == "4":
+            A4.append(x)
+        elif last_element == "16":
+            A16.append(x)
+        elif last_element == "20":
+            A20.append(x)
+        elif last_element == "37":
+            A37.append(x)
+        elif last_element == "42":
+            A42.append(x)
+        elif last_element == "58":
+            A58.append(x)
+        elif last_element == "89":
+            A89.append(x)
+        elif last_element == "145":
+            A145.append(x)
+        x += 1
+    A1len = len(A1)
+    A4len = len(A4)
+    A16len = len(A16)
+    A20len = len(A20)
+    A37len = len(A37)
+    A42len = len(A42)
+    A58len = len(A58)
+    A89len = len(A89)
+    A145len = len(A145)
+    print("\nDet finns {} stycken 1or och listan ser ut:".format(A1len))
+    print(A1)
+    print("\nDet finns {} stycken 4or och listan ser ut:".format(A4len))
+    print(A4)
+    print("\nDet finns {} stycken 16 och listan ser ut:".format(A16len))
+    print(A16)
+    print("\nDet finns {} stycken 20 och listan ser ut:".format(A20len))
+    print(A20)
+    print("\nDet finns {} stycken 37 och listan ser ut:".format(A37len))
+    print(A37)
+    print("\nDet finns {} stycken 42 och listan ser ut:".format(A42len))
+    print(A42)
+    print("\nDet finns {} stycken 58 och listan ser ut:".format(A58len))
+    print(A58)
+    print("\nDet finns {} stycken 89 och listan ser ut:".format(A89len))
+    print(A89)
+    print("\nDet finns {} stycken 145 och listan ser ut:".format(A145len))
+    print(A145)
+
+find_xa()
+
+
+
+
+
+
+
+
+
